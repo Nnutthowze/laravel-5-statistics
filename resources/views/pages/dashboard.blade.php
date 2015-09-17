@@ -41,6 +41,7 @@
                     <input type="date" name="to" class="form-control" id="to" value="2015-02-02">
                 </div>
             </div>
+            <button type="submit">Send</button>
         </form>
 
         <div id="form-errors">

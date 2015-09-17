@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EnviromentalData;
 use App\Services\TransformService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -35,20 +36,15 @@ class DashboardController extends Controller
         $min = EnviromentalData::getFirstDate();
         $max = EnviromentalData::getLastDate();
 
+        $dt = Carbon::createFromFormat('Y-m-d', $max);
+        $max = $dt->addDay();
+
         $this->validate($request, [
-            'from' => 'required|min:' . $min,
-            'to' => 'required|max:' . $max
+            'from' => 'required|date|after:' . $min . '|before:' . $max,
+            'to' => 'required|date|after:' . $min . '|before:' . $max
         ]);
 
-        try {
-            $envData = EnviromentalData::whereBetween('data_recorded', array($request->from, $request->to))->get();
-            return TransformService::transform($envData);
-        }
-        catch(\Exception $e)
-        {
-            Log::error($e->getMessage());
-            return redirect()->back();
-            //return response()->json($e->getMessage(), 422);
-        }
+        $envData = EnviromentalData::whereBetween('data_recorded', array($request->from, $request->to))->get();
+        return TransformService::transform($envData);
     }
 }
