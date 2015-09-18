@@ -1,26 +1,29 @@
 $(function() {
 
-$('#from').val('2015-01-01');
+    "use strict";
+
+    $('#from').val('2015-07-06');
     $('#to').val('2015-08-06');
 
-    loadChart();
+    loadData();
 
     // Change event for inputs date
     $('input[type=date]').change(function() {
         $('#form-errors').html('');
-        loadChart();
+        loadData();
     });
 
     // Ajax call to update the dashboard
-    function loadChart() {
+    function loadData() {
 
         var form = $('#dashboard-date');
 
         $.getJSON(form.prop('action'), form.serialize(),
-            function (data, textStatus, jqXHR) {
+            function (jsonData, textStatus, jqXHR) {
                 if(jqXHR.status === 200 ) {
-                    console.log(data);
                     // TODO: need to add here some stuff for c3js
+
+                    generateChart(jsonData);
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -43,4 +46,45 @@ $('#from').val('2015-01-01');
             });
     }
 
+    // chart generator
+    function generateChart(data) {
+
+        console.log(data);
+
+        var chart = c3.generate({
+            data: {
+                x : 'Data Recorded',
+                type: 'line',
+                json: data,
+                keys: {
+                    // x: 'name', // it's possible to specify 'x' when category axis
+                    value: ['Data Recorded', 'Mean Temperature',
+                        'Median Temperature', 'Mean Pressure',
+                        'Median Pressure', 'Mean Speed', 'Median Speed']
+                }
+            },
+            bar: {
+                width: {
+                    ratio: 0.9
+                }
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%Y-%m-%d'
+                    }
+                } // x
+            }, // axis
+            subchart: {
+                show: true
+            }
+        }); // chart
+
+        setTimeout(function () {
+            chart.load({
+                value: ['Mean Temperature']
+            });
+        }, 1000);
+    }
 });

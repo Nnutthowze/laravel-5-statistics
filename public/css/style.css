@@ -1,8 +1,44 @@
-.form {
-    margin: 250px auto;
-    width: 50%;
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+
+body {
+    font-family: "Roboto Slab", sans-serif;
+    font-size: 2em;
+    font-weight: 300;
 }
 
-.content {
-    margin-top: 150px;
+
+header {
+    padding: 50px 0;
+    background-color: #093641;
+}
+
+main {
+    margin-top: 50px;
+}
+
+#form-wrapper {
+    margin-top: 25px;
+}
+
+p {
+    font-size: 1.3em;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+label {
+    left: 10px;
+    color: #E76C5A;
+    font-size: 1em;
+}
+
+.form-group {
+    font-weight: 700;
+}
+
+#form-errors {
+    margin-top: 15px;
 }

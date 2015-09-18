@@ -9,7 +9,8 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+    <!-- c3 Styles -->
+    <link rel="stylesheet" href="{{ asset('css/c3.min.css') }}"/>
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
@@ -47,18 +48,20 @@
 
 @endif
 
-<div class="container">
-    <div class="content">
+<div class="main-content">
 
-        @yield('content')
+    @yield('content')
 
-    </div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- Include d3js library -->
+<script src="{{ asset('js/d3.min.js') }}"></script>
+<!-- Include c3js library -->
+<script src="{{ asset('js/c3.min.js') }}"></script>
 <!-- Include custom scripts -->
 <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
